@@ -1,0 +1,26 @@
+systemLog:
+   path: /usr/local/mongodb-src/mongodb/shard1-2/logs/shard1-2.log
+   destination: file
+   timeStampFormat: iso8601-utc
+
+processManagement:
+   fork: true
+   pidFilePath: /usr/local/mongodb-src/mongodb/shard1-2/pid/shard1-2.pid
+
+net:
+   port: 27028
+   bindIp: 192.168.95.57
+
+storage:
+   dbPath: /usr/local/mongodb-src/mongodb/shard1-2/data
+   directoryPerDB: true
+   wiredTiger:
+      engineConfig:
+         directoryForIndexes: true
+
+replication:
+   replSetName: shard1
+   enableMajorityReadConcern: true
+
+sharding:
+   clusterRole: shardsvr

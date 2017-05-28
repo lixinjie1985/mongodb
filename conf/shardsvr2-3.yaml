@@ -1,32 +1,26 @@
 systemLog:
-   path:
+   path: /usr/local/mongodb-src/mongodb/shard2-3/logs/shard2-3.log
    destination: file
    timeStampFormat: iso8601-utc
 
 processManagement:
    fork: true
-   pidFilePath: <string>
+   pidFilePath: /usr/local/mongodb-src/mongodb/shard2-3/pid/shard2-3.pid
 
 net:
-   port: 27017
+   port: 27038
    bindIp: 192.168.95.57
 
 storage:
-   dbPath: <string>
+   dbPath: /usr/local/mongodb-src/mongodb/shard2-3/data
    directoryPerDB: true
    wiredTiger:
       engineConfig:
          directoryForIndexes: true
 
 replication:
-   replSetName: <string>
+   replSetName: shard2
    enableMajorityReadConcern: true
 
 sharding:
-   clusterRole: configsvr
-
-
-
-
-
-
+   clusterRole: shardsvr

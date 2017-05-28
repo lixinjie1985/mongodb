@@ -1,0 +1,50 @@
+https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/
+
+rs.initiate(
+  {
+    _id: "config",
+    configsvr: true,
+    members: [
+      { _id : 0, host : "192.168.95.52:27019" },
+      { _id : 1, host : "192.168.95.52:27029" },
+      { _id : 2, host : "192.168.95.57:27039" }
+    ]
+  }
+)
+
+rs.status()
+
+rs.initiate(
+  {
+    _id : "shard1",
+    members: [
+      { _id : 0, host : "192.168.95.57:27018" },
+      { _id : 1, host : "192.168.95.57:27028" },
+      { _id : 2, host : "192.168.95.52:27038" }
+    ]
+  }
+)
+
+rs.status()
+
+rs.initiate(
+  {
+    _id : "shard2",
+    members: [
+      { _id : 0, host : "192.168.95.52:27018" },
+      { _id : 1, host : "192.168.95.52:27028" },
+      { _id : 2, host : "192.168.95.57:27038" }
+    ]
+  }
+)
+
+rs.status()
+
+
+sh.addShard("shard1/192.168.95.57:27018")
+sh.addShard("shard1/192.168.95.57:27028")
+sh.addShard("shard1/192.168.95.52:27038")
+
+sh.addShard("shard2/192.168.95.52:27018")
+sh.addShard("shard2/192.168.95.52:27028")
+sh.addShard("shard2/192.168.95.57:27038")

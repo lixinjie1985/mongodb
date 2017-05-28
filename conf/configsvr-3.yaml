@@ -1,0 +1,26 @@
+systemLog:
+   path: /usr/local/mongodb-src/mongodb/config-3/logs/config-3.log
+   destination: file
+   timeStampFormat: iso8601-utc
+
+processManagement:
+   fork: true
+   pidFilePath: /usr/local/mongodb-src/mongodb/config-3/pid/config-3.pid
+
+net:
+   port: 27039
+   bindIp: 192.168.95.57
+
+storage:
+   dbPath: /usr/local/mongodb-src/mongodb/config-3/data
+   directoryPerDB: true
+   wiredTiger:
+      engineConfig:
+         directoryForIndexes: true
+
+replication:
+   replSetName: config
+   enableMajorityReadConcern: true
+
+sharding:
+   clusterRole: configsvr
