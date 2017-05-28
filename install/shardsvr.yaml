@@ -1,0 +1,34 @@
+systemLog:
+   path:
+   destination: file
+   timeStampFormat: iso8601-utc
+
+processManagement:
+   fork: true
+   pidFilePath: <string>
+
+net:
+   port: 27017
+   bindIp: 192.168.95.57
+
+storage:
+   dbPath: <string>
+   directoryPerDB: true
+   wiredTiger:
+      engineConfig:
+         directoryForIndexes: true
+
+replication:
+   replSetName: <string>
+   enableMajorityReadConcern: true
+
+sharding:
+   clusterRole: shardsvr
+
+
+
+
+
+
+
+
