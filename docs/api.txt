@@ -6,3 +6,24 @@ com.mongodb.client.MongoDatabase，表示数据库。可以删除数据库，创
 com.mongodb.client.MongoCollection<TDocument>，表示一个集合。允许存储不同类型文档，任何自定义类型的文档都必须注册一个Codec，默认注册的支持BsonDocument、Document和DBObject三种类型文档。可以删除集合，设置读写关注、读优先权，对文档的添查删改替，对文档的批量操作，执行聚合，对索引的添查删，执行map-reduce操作。
 com.mongodb.client.AggregateIterable<TResult>、FindIterable<TResult>、DistinctIterable<TResult>、ListCollectionsIterable<TResult>、ListDatabasesIterable<TResult>、ListIndexesIterable<TResult>、MapReduceIterable<TResult>表示在数据库或集合上执行相应操作的结果。
 
+com.mongodb.client.gridfs.GridFSBucket,表示一个文件。可以进行上传、下载、查找、重命名、删除，设置读写关注、读优先权，设置文件分块的大小等。
+com.mongodb.client.gridfs.GridFSFindIterable，文件查找操作的返回结果。
+com.mongodb.client.gridfs.GridFSBuckets，工厂对象，用于创建GridFSBucket实例。
+com.mongodb.client.gridfs.GridFSUploadStream，继承java.io.OutputStream，用于上传文件。
+com.mongodb.client.gridfs.GridFSDownloadStream，继承java.io.InputStream，用于下载文件。
+
+com.mongodb.client.gridfs.codecs.GridFSFileCodec，用于GridFSFile对象的编解码器。
+com.mongodb.client.gridfs.codecs.GridFSFileCodecProvider，编解码器的提供者。
+
+com.mongodb.client.gridfs.model.GridFSFile，表示一个文件。
+com.mongodb.client.gridfs.model.GridFSUploadOptions，文件上传选项。可以指定块的大小和提供一个元数据文档随文件一起存储。
+com.mongodb.client.gridfs.model.GridFSDownloadOptions，文件下载选项。可以设置修订版本，0表示原始存储文件，-1表示最新版本。
+
+com.mongodb.client.model.Aggregates，聚合管线工具类。$group分组，$limit限定个数，$lookup查找，$match匹配，$out输出，$project投影，$sample样本，$skip跳过个数，$sort排序，$unwind放松展开。
+com.mongodb.client.model.Accumulators，累加工具类，用在分组管线中。$sum，$avg，$first，$last，$max，$min，$push，$addToSet，$stdDevPop，$stdDevSamp。
+com.mongodb.client.model.Filters，过滤器工具类。$eq，$ne，$gt，$lt，$gte，$lte，$in，$nin，$and，$or，$not，$nor，$exists，$type，$mod，$regex，$text，$where，$all，$elemMatch，$size，$bitsAllClear，$bitsAllSet，$bitsAllClear，$bitsAnySet，$geoWithin，$geoWithin和$box，$geoWithin和$polygon，$geoWithin和$center，$geoWithin和$centerSphere，$geoIntersects，$geoIntersects，$near。
+com.mongodb.client.model.Indexes，索引工具类。ascending升序，compound复合，descending降序，geo2d地理，geo2dsphere球形，geoHaystack地理，hashed哈希，text文本。
+com.mongodb.client.model.Projections，投影工具类。computed计算，elemMatch数组元素匹配，exclude排除，excludeId排除_id字段，fields连接多个字段为一个，include包括，metaTextScore文本匹配程度的一个分数值，slice数组值分片。
+com.mongodb.client.model.Sorts，排序工具类。ascending升序，descending降序，metaTextScore按textScore排序，orderBy联合多个排序规则。
+com.mongodb.client.model.Updates，更新工具类。combine多个更新合为一个更新，$set设置字段值，$unset删除字段，$setOnInsert在插入是设置字段值，$rename重命名字段，$inc字段值加上指定值，$mul字段值乘以指定值。$min如果比当前字段值小就设置，$max如果比当前字段值大就设置，$currentDate设置字段值为当前时间，currentTimestamp设置字段值为当前时间戳，$addToSet往指定字段的数组中添加一个值，如果已包含该值则不添加，addEachToSet往指定字段的数组中添加多个值，如果已包含该值则不添加，$push往指定字段的数组中添加一个值，pushEach往指定字段的数组中添加多个值，$pull从指定字段的数组中删除指定的一个值，pullByFilter根据过滤器从数组中删除元素，pullAll从指定字段的数组中删除指定的多个值，popFirst从指定字段的数组中弹出第一个元素，popLast从指定字段的数组中弹出最后一个元素，bitwiseAnd指定字段的值与指定的值执行按位与操作，bitwiseOr指定字段的值与指定的值执行按位或操作，bitwiseXor指定字段的值与指定的值执行按位异或操作，
+
