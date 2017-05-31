@@ -1,0 +1,8 @@
+com.mongodb.MongoClient，客户端API入口，整个JVM只需该类的一个实例。从该类可以获得mongodb中所有的数据库。可以使用MongoClientURI指定连接字符串，使用ServerAddress指定IP和端口，使用MongoCredential指定用户名和密码等安全相关信息，使用MongoClientOptions指定一些配置选项，具体由MongoClientOptions.Builder来完成设置，包括超时时间，心跳信息，安全套接字，读关注，读优先，写关注等。
+com.mongodb.WriteConcern，控制写操作的确认级别。ACKNOWLEDGED：等待确认，且使用服务器配置的确认级别，JOURNALED：等待服务器分组提交日志文件到磁盘， 	MAJORITY：等待大多数服务器写操作完成，UNACKNOWLEDGED：不需要确认，只要写入socket立马返回，W1：等待一个服务器确认，W2：等待两个服务器确认，W3：等待三个服务器确认。
+com.mongodb.ReadPreference，选择优先查询的副本集合成员。nearest：从最近的读，primary：从primary读，primaryPreferred：优先从primary，其次从secondary，secondary：从secondary读取，secondaryPreferred：优先从secondary，其次从primary。
+com.mongodb.ReadConcern，客户端选择读的隔离级别。 	DEFAULT：使用服务器默认的配置，LOCAL：返回节点最新的数据，不保证该数据已经成功写入大多数节点，MAJORITY：返回节点最新的数据，保证该数据已经成功写入大多数节点。
+com.mongodb.client.MongoDatabase，表示数据库。可以删除数据库，创建、获取集合，运行命令，设置读关注、读优先权，写关注，注册编解码器。
+com.mongodb.client.MongoCollection<TDocument>，表示一个集合。允许存储不同类型文档，任何自定义类型的文档都必须注册一个Codec，默认注册的支持BsonDocument、Document和DBObject三种类型文档。可以删除集合，设置读写关注、读优先权，对文档的添查删改替，对文档的批量操作，执行聚合，对索引的添查删，执行map-reduce操作。
+com.mongodb.client.AggregateIterable<TResult>、FindIterable<TResult>、DistinctIterable<TResult>、ListCollectionsIterable<TResult>、ListDatabasesIterable<TResult>、ListIndexesIterable<TResult>、MapReduceIterable<TResult>表示在数据库或集合上执行相应操作的结果。
+
