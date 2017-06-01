@@ -2,9 +2,50 @@ com.mongodb.MongoClient，客户端API入口，整个JVM只需该类的一个实
 com.mongodb.WriteConcern，控制写操作的确认级别。ACKNOWLEDGED：等待确认，且使用服务器配置的确认级别，JOURNALED：等待服务器分组提交日志文件到磁盘， 	MAJORITY：等待大多数服务器写操作完成，UNACKNOWLEDGED：不需要确认，只要写入socket立马返回，W1：等待一个服务器确认，W2：等待两个服务器确认，W3：等待三个服务器确认。
 com.mongodb.ReadPreference，选择优先查询的副本集合成员。nearest：从最近的读，primary：从primary读，primaryPreferred：优先从primary，其次从secondary，secondary：从secondary读取，secondaryPreferred：优先从secondary，其次从primary。
 com.mongodb.ReadConcern，客户端选择读的隔离级别。 	DEFAULT：使用服务器默认的配置，LOCAL：返回节点最新的数据，不保证该数据已经成功写入大多数节点，MAJORITY：返回节点最新的数据，保证该数据已经成功写入大多数节点。
+
 com.mongodb.client.MongoDatabase，表示数据库。可以删除数据库，创建、获取集合，运行命令，设置读关注、读优先权，写关注，注册编解码器。
 com.mongodb.client.MongoCollection<TDocument>，表示一个集合。允许存储不同类型文档，任何自定义类型的文档都必须注册一个Codec，默认注册的支持BsonDocument、Document和DBObject三种类型文档。可以删除集合，设置读写关注、读优先权，对文档的添查删改替，对文档的批量操作，执行聚合，对索引的添查删，执行map-reduce操作。
 com.mongodb.client.AggregateIterable<TResult>、FindIterable<TResult>、DistinctIterable<TResult>、ListCollectionsIterable<TResult>、ListDatabasesIterable<TResult>、ListIndexesIterable<TResult>、MapReduceIterable<TResult>表示在数据库或集合上执行相应操作的结果。
+
+com.mongodb.client.model.Aggregates，聚合管线工具类。$group分组，$limit限定个数，$lookup查找，$match匹配，$out输出，$project投影，$sample样本，$skip跳过个数，$sort排序，$unwind放松展开。
+com.mongodb.client.model.Accumulators，累加工具类，用在分组管线中。$sum，$avg，$first，$last，$max，$min，$push，$addToSet，$stdDevPop，$stdDevSamp。
+com.mongodb.client.model.Filters，过滤器工具类。$eq，$ne，$gt，$lt，$gte，$lte，$in，$nin，$and，$or，$not，$nor，$exists，$type，$mod，$regex，$text，$where，$all，$elemMatch，$size，$bitsAllClear，$bitsAllSet，$bitsAllClear，$bitsAnySet，$geoWithin，$geoWithin和$box，$geoWithin和$polygon，$geoWithin和$center，$geoWithin和$centerSphere，$geoIntersects，$geoIntersects，$near。
+com.mongodb.client.model.Indexes，索引工具类。ascending升序，compound复合，descending降序，geo2d地理，geo2dsphere球形，geoHaystack地理，hashed哈希，text文本。
+com.mongodb.client.model.Projections，投影工具类。computed计算，elemMatch数组元素匹配，exclude排除，excludeId排除_id字段，fields连接多个字段为一个，include包括，metaTextScore文本匹配程度的一个分数值，slice数组值分片。
+com.mongodb.client.model.Sorts，排序工具类。ascending升序，descending降序，metaTextScore按textScore排序，orderBy联合多个排序规则。
+com.mongodb.client.model.Updates，更新工具类。combine多个更新合为一个更新，$set设置字段值，$unset删除字段，$setOnInsert在插入是设置字段值，$rename重命名字段，$inc字段值加上指定值，$mul字段值乘以指定值。$min如果比当前字段值小就设置，$max如果比当前字段值大就设置，$currentDate设置字段值为当前时间，currentTimestamp设置字段值为当前时间戳，$addToSet往指定字段的数组中添加一个值，如果已包含该值则不添加，addEachToSet往指定字段的数组中添加多个值，如果已包含该值则不添加，$push往指定字段的数组中添加一个值，pushEach往指定字段的数组中添加多个值，$pull从指定字段的数组中删除指定的一个值，pullByFilter根据过滤器从数组中删除元素，pullAll从指定字段的数组中删除指定的多个值，popFirst从指定字段的数组中弹出第一个元素，popLast从指定字段的数组中弹出最后一个元素，bitwiseAnd指定字段的值与指定的值执行按位与操作，bitwiseOr指定字段的值与指定的值执行按位或操作，bitwiseXor指定字段的值与指定的值执行按位异或操作，
+com.mongodb.client.model.BsonField，表示一个文档字段，该字段的值是另一个文档。
+com.mongodb.client.model.BulkWriteOptions，批量写入时的配置。可以设置是否进行文档验证，是否顺序执行。
+com.mongodb.client.model.CountOptions，用于计数操作的配置。
+com.mongodb.client.model.CreateCollectionOptions，创建集合时的配置。可以设置是否自动索引， 是否固定集合，固定集合时的最大文档数目，最大集合容量（字节数），设置存储引擎，设置分配策略，设置文档验证配置等。
+com.mongodb.client.model.DeleteOneModel<T>，最多删除一个文档。
+com.mongodb.client.model.DeleteManyModel<T>，删除多个文档。
+com.mongodb.client.model.FindOneAndDeleteOptions，配置项，以原子的形式找到文档并删除。可以设置排序、投影、该操作的最长执行时间。
+com.mongodb.client.model.FindOneAndReplaceOptions，配置项，以原子的形式找到文档并替换。可以设置排序、投影、该操作的最长执行时间，是否进行文档验证，是否更新或插入，返回替换前或后的文档。
+com.mongodb.client.model.FindOneAndUpdateOptions，配置项，以原子的形式找到文档并更新。可以设置排序、投影、该操作的最长执行时间，是否进行文档验证，是否更新或插入，返回替换前或后的文档。
+com.mongodb.client.model.FindOptions，用于查询的配置项。
+com.mongodb.client.model.IndexModel，描述单个索引的创建。
+com.mongodb.client.model.IndexOptions，创建索引时的配置项。
+com.mongodb.client.model.InsertManyOptions，插入多个文档时的配置项。可以设置是否进行文档验证、是否按顺序执行。
+com.mongodb.client.model.InsertOneOptions，插入一个文档时的配置项。可以设置是否进行文档验证。
+com.mongodb.client.model.InsertOneModel<T>，描述单个文档的插入。
+com.mongodb.client.model.PushOptions，用于$push操作符的配置项。可以设置分片、位置、排序。
+com.mongodb.client.model.RenameCollectionOptions，重命名集合时的配置项。
+com.mongodb.client.model.ReplaceOneModel<T>，描述最多替换一个文档。
+com.mongodb.client.model.TextSearchOptions，用于文档搜索的配置项。
+com.mongodb.client.model.UnwindOptions，用于放松聚合管线阶段的配置项。
+com.mongodb.client.model.UpdateManyModel<T>，描述更新多个文档。
+com.mongodb.client.model.UpdateOneModel<T>，最多更新一个文档。
+com.mongodb.client.model.UpdateOptions，用于更新文档时的配置项。可以设置是否进行文档验证，是否更新或插入。
+com.mongodb.client.model.ValidationOptions，用于更新或插入时的文档验证配置项。可以设置一个验证器，验证的严格程度级别，遇到非法文档时的反应。
+
+com.mongodb.client.result.DeleteResult，表示一个删除操作的结果。可以获得删除的行数，但是如果该删除没有被确认的话，对其他方法的调用将抛异常。
+com.mongodb.client.result.UpdateResult，表示一个更新操作的结果。可以获取匹配的行数和修改的行数，但是如果该删除没有被确认的话，对其他方法的调用将抛异常。
+
+com.mongodb.gridfs.GridFSFile，抽象类，表示一个GridFS文件。
+com.mongodb.gridfs.GridFSInputFile，继承GridFSFile，表示一个即将被写入到数据库中的文件，包含一个InputStream用于获取要写的数据，一个OutputStream用于写入数据。可以设置文件ID，名称，类型，块大小等。
+com.mongodb.gridfs.GridFSDBFile，继承GridFSFile，可以获取GridFS文件的元数据和内容，包括把文件写入磁盘或写入OutputStream，一个InputStream用于获取数据。
+com.mongodb.gridfs.GridFS，实现一个规范，用于存储和获取超过16M大小的文件。把文件分割成块，每块单独存储成一个文档，默认块大小是255K，使用两个集合来存储，一个存储文件块，一个存储文件元数据，当查询时，这些文件块可以被重新组合成一个文件，可以在这些文件块上按范围查询，可以访问文件的任意块，这允许在视频或音频文件中跳过一段。GridFS的好处是不仅可以存储超过16M的文件，而且可以访问文件的某部分而不用把整个文件都放入内存，
 
 com.mongodb.client.gridfs.GridFSBucket,表示一个文件。可以进行上传、下载、查找、重命名、删除，设置读写关注、读优先权，设置文件分块的大小等。
 com.mongodb.client.gridfs.GridFSFindIterable，文件查找操作的返回结果。
@@ -19,11 +60,10 @@ com.mongodb.client.gridfs.model.GridFSFile，表示一个文件。
 com.mongodb.client.gridfs.model.GridFSUploadOptions，文件上传选项。可以指定块的大小和提供一个元数据文档随文件一起存储。
 com.mongodb.client.gridfs.model.GridFSDownloadOptions，文件下载选项。可以设置修订版本，0表示原始存储文件，-1表示最新版本。
 
-com.mongodb.client.model.Aggregates，聚合管线工具类。$group分组，$limit限定个数，$lookup查找，$match匹配，$out输出，$project投影，$sample样本，$skip跳过个数，$sort排序，$unwind放松展开。
-com.mongodb.client.model.Accumulators，累加工具类，用在分组管线中。$sum，$avg，$first，$last，$max，$min，$push，$addToSet，$stdDevPop，$stdDevSamp。
-com.mongodb.client.model.Filters，过滤器工具类。$eq，$ne，$gt，$lt，$gte，$lte，$in，$nin，$and，$or，$not，$nor，$exists，$type，$mod，$regex，$text，$where，$all，$elemMatch，$size，$bitsAllClear，$bitsAllSet，$bitsAllClear，$bitsAnySet，$geoWithin，$geoWithin和$box，$geoWithin和$polygon，$geoWithin和$center，$geoWithin和$centerSphere，$geoIntersects，$geoIntersects，$near。
-com.mongodb.client.model.Indexes，索引工具类。ascending升序，compound复合，descending降序，geo2d地理，geo2dsphere球形，geoHaystack地理，hashed哈希，text文本。
-com.mongodb.client.model.Projections，投影工具类。computed计算，elemMatch数组元素匹配，exclude排除，excludeId排除_id字段，fields连接多个字段为一个，include包括，metaTextScore文本匹配程度的一个分数值，slice数组值分片。
-com.mongodb.client.model.Sorts，排序工具类。ascending升序，descending降序，metaTextScore按textScore排序，orderBy联合多个排序规则。
-com.mongodb.client.model.Updates，更新工具类。combine多个更新合为一个更新，$set设置字段值，$unset删除字段，$setOnInsert在插入是设置字段值，$rename重命名字段，$inc字段值加上指定值，$mul字段值乘以指定值。$min如果比当前字段值小就设置，$max如果比当前字段值大就设置，$currentDate设置字段值为当前时间，currentTimestamp设置字段值为当前时间戳，$addToSet往指定字段的数组中添加一个值，如果已包含该值则不添加，addEachToSet往指定字段的数组中添加多个值，如果已包含该值则不添加，$push往指定字段的数组中添加一个值，pushEach往指定字段的数组中添加多个值，$pull从指定字段的数组中删除指定的一个值，pullByFilter根据过滤器从数组中删除元素，pullAll从指定字段的数组中删除指定的多个值，popFirst从指定字段的数组中弹出第一个元素，popLast从指定字段的数组中弹出最后一个元素，bitwiseAnd指定字段的值与指定的值执行按位与操作，bitwiseOr指定字段的值与指定的值执行按位或操作，bitwiseXor指定字段的值与指定的值执行按位异或操作，
+
+
+
+
+
+
 
